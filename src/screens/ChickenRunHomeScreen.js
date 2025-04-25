@@ -3,14 +3,12 @@ import {
   View,
   TouchableOpacity,
   Image,
-  Keyboard,
   Dimensions,
   SafeAreaView,
-  TouchableWithoutFeedback,
   Text,
 } from 'react-native';
 
-import ChroniclesInformationScreen from './ChroniclesInformationScreen';
+import ChickenSettingsScreen from './ChickenSettingsScreen';
 import LinearGradient from 'react-native-linear-gradient';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,14 +21,14 @@ const fontKronaOneRegular = 'KronaOne-Regular';
 const ChickenRunHomeScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [selectedTimeChroniclesPage, setSelectedTimeChroniclesPage] = useState('Home');
-  const [prideNotificationsEnabled, setPrideNotificationsEnabled] = useState(false);
+  const [chickenAudioEnabled, setChickenAudioEnabled] = useState(false);
 
   useEffect(() => {
     const loadPrideNotificationsSetting = async () => {
       try {
-        const storedPrideNotifications = await AsyncStorage.getItem('prideNotificationsEnabled');
+        const storedPrideNotifications = await AsyncStorage.getItem('chickenAudioEnabled');
         if (storedPrideNotifications !== null) {
-          setPrideNotificationsEnabled(JSON.parse(storedPrideNotifications));
+          setChickenAudioEnabled(JSON.parse(storedPrideNotifications));
         }
       } catch (error) {
         console.error('Error loading pride notifications setting:', error);
@@ -102,9 +100,8 @@ const ChickenRunHomeScreen = () => {
           ))}
 
         </SafeAreaView>
-      ) : selectedTimeChroniclesPage === 'Information' ? (
-        <ChroniclesInformationScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage}
-        />
+      ) : selectedTimeChroniclesPage === 'Settings' ? (
+        <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenAudioEnabled={chickenAudioEnabled} setChickenAudioEnabled={setChickenAudioEnabled} />
       ) : selectedTimeChroniclesPage === 'Interesting facts' ? (
         <ChroniclesFactsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'My catches' ? (
