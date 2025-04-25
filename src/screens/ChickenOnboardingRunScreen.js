@@ -8,9 +8,9 @@ const fontKronaOneRegular = 'KronaOne-Regular';
 
 const ChickenOnboardingRunScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
-  const [currentTimeChroniclesIndex, setCurrentTimeChroniclesIndex] = useState(0);
-  const timeChroniclesRef = useRef(null);
-  const timeChroniclesRefHorizontalScrollX = useRef(new Animated.Value(0)).current;
+  const [currentIndexOfChickenSlide, setCurrentIndexOfChickenSlide] = useState(0);
+  const refOfChicken = useRef(null);
+  const ChickenRefHorizontalScrollX = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -25,40 +25,40 @@ const ChickenOnboardingRunScreen = () => {
 
   const viewableItemsChanged = useRef(({ viewableItems }) => {
     if (viewableItems && viewableItems.length > 0) {
-      setCurrentTimeChroniclesIndex(viewableItems[0].index);
+      setCurrentIndexOfChickenSlide(viewableItems[0].index);
     }
   }).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
-  const scrollNextTimeChroniclesSlide = () => {
-    if (currentTimeChroniclesIndex >= fishingOnboardingData.length - 1) {
+  const scrollNextChickenSlide = () => {
+    if (currentIndexOfChickenSlide >= fishingOnboardingData.length - 1) {
       navigation.replace('TimeChroniclesHome');
     } else {
-      timeChroniclesRef.current.scrollToIndex({ index: currentTimeChroniclesIndex + 1 });
+      refOfChicken.current.scrollToIndex({ index: currentIndexOfChickenSlide + 1 });
     }
   };
 
-  const timechroniclesItemRender = ({ item }) => (
+  const renderChickenItem = ({ item }) => (
     <View style={{
-      width: dimensions.width,
-      alignItems: 'center',
-      height: dimensions.height,
-      flex: 1,
       justifyContent: 'space-between',
+      alignItems: 'center',
+      flex: 1,
+      height: dimensions.height,
+      width: dimensions.width,
     }}>
       <View style={{
-        width: dimensions.width,
-        alignItems: 'center',
         alignSelf: 'flex-end',
+        alignItems: 'center',
+        width: dimensions.width,
       }}>
         <Image
           source={item.itemImage}
           style={{
-            width: dimensions.width * 0.9,
-            alignSelf: 'center',
-            height: dimensions.height * 0.65,
             marginTop: dimensions.height * 0.1,
+            alignSelf: 'center',
+            width: dimensions.width * 0.9,
+            height: dimensions.height * 0.65,
           }}
           resizeMode="contain"
         />
@@ -69,9 +69,9 @@ const ChickenOnboardingRunScreen = () => {
   return (
     <SafeAreaView
       style={{
-        justifyContent: 'space-between',
-        flex: 1,
         alignItems: 'center',
+        flex: 1,
+        justifyContent: 'space-between',
       }}
     >
       <LinearGradient
@@ -84,16 +84,16 @@ const ChickenOnboardingRunScreen = () => {
         <FlatList
           horizontal
           scrollEventThrottle={32}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={timechroniclesItemRender}
-          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          renderItem={renderChickenItem}
           onViewableItemsChanged={viewableItemsChanged}
-          ref={timeChroniclesRef}
+          keyExtractor={(item) => item.id.toString()}
+          ref={refOfChicken}
           bounces={false}
           data={fishingOnboardingData}
+          pagingEnabled
           viewabilityConfig={viewConfig}
-          showsHorizontalScrollIndicator={false}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: timeChroniclesRefHorizontalScrollX } } }], {
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: ChickenRefHorizontalScrollX } } }], {
             useNativeDriver: false,
           })}
         />
@@ -101,11 +101,12 @@ const ChickenOnboardingRunScreen = () => {
 
       <TouchableOpacity
         onPress={() => {
-          scrollNextTimeChroniclesSlide();
+          scrollNextChickenSlide();
         }}
         style={{
           alignSelf: 'center',
           alignItems: 'center',
+          borderRadius: dimensions.width * 0.0616161,
           justifyContent: 'center',
           marginTop: dimensions.height * 0.03,
           backgroundColor: '#fff',
@@ -113,21 +114,20 @@ const ChickenOnboardingRunScreen = () => {
           width: dimensions.width * 0.8818,
           position: 'absolute',
           bottom: dimensions.height * 0.05,
-          borderRadius: dimensions.width * 0.0616161,
-          borderWidth: dimensions.width * 0.003,
           borderColor: 'black',
+          borderWidth: dimensions.width * 0.003,
         }}
       >
         <Text
           style={{
-            paddingHorizontal: dimensions.width * 0.05,
-            color: 'black',
-            fontWeight: 700,
-            fontFamily: fontKronaOneRegular,
-            fontSize: dimensions.width * 0.06,
             textAlign: 'center',
+            color: 'black',
+            fontFamily: fontKronaOneRegular,
+            fontWeight: 700,
+            paddingHorizontal: dimensions.width * 0.05,
+            fontSize: dimensions.width * 0.06,
           }}>
-          {currentTimeChroniclesIndex >= fishingOnboardingData.length - 1 ? 'Start' : 'Next'}
+          {currentIndexOfChickenSlide >= fishingOnboardingData.length - 1 ? 'Start' : 'Next'}
         </Text>
       </TouchableOpacity>
     </SafeAreaView>
