@@ -7,17 +7,17 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loadTimeChroniclesUser = async () => {
+    const loadChickenUserRunner = async () => {
       try {
-        const storedTimeChroniclesUser = await AsyncStorage.getItem('currentUser');
-        if (storedTimeChroniclesUser) {
-          setUser(JSON.parse(storedTimeChroniclesUser));
+        const storedChickenUserRunner = await AsyncStorage.getItem('currentUser');
+        if (storedChickenUserRunner) {
+          setUser(JSON.parse(storedChickenUserRunner));
         }
       } catch (error) {
-        console.error('Error loading storedTimeChroniclesUser user:', error);
+        console.error('Error loading storedChickenUserRunner user:', error);
       }
     };
-    loadTimeChroniclesUser();
+    loadChickenUserRunner();
   }, []);
 
   return (

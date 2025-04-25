@@ -18,12 +18,9 @@ import ChroniclesFactsScreen from './ChroniclesFactsScreen';
 import ChroniclesMyCatchesScreen from './ChroniclesMyCatchesScreen';
 import ChroniclesAquariumScreen from './ChroniclesAquariumScreen';
 
-const prideFontPoppinsRegular = 'Poppins-Regular';
-
-
 const fontKronaOneRegular = 'KronaOne-Regular';
 
-const HomePrideQuestScreen = () => {
+const ChickenRunHomeScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [selectedTimeChroniclesPage, setSelectedTimeChroniclesPage] = useState('Home');
   const [prideNotificationsEnabled, setPrideNotificationsEnabled] = useState(false);
@@ -119,4 +116,4 @@ const HomePrideQuestScreen = () => {
   );
 };
 
-export default HomePrideQuestScreen;
+export default ChickenRunHomeScreen;

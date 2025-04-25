@@ -33,7 +33,7 @@ const ChickenOnboardingRunScreen = () => {
 
   const scrollNextChickenSlide = () => {
     if (currentIndexOfChickenSlide >= fishingOnboardingData.length - 1) {
-      navigation.replace('TimeChroniclesHome');
+      navigation.replace('ChickenRunHomeScreen');
     } else {
       refOfChicken.current.scrollToIndex({ index: currentIndexOfChickenSlide + 1 });
     }
