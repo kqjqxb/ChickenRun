@@ -49,9 +49,9 @@ const ChroniclesLoadingScreen = () => {
   useEffect(() => {
     if (initializationComplete) {
       const timer = setTimeout(() => {
-        const destination = isCallEnOnboardingToSportVisibled ? 'TimeChroniclesOnboarding' : 'TimeChroniclesHome';
+        const destination = isCallEnOnboardingToSportVisibled ? 'TimeChroniclesOnboarding' : 'TimeChroniclesOnboarding';
         navigation.replace(destination);
-      }, 2500);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [initializationComplete, isCallEnOnboardingToSportVisibled, navigation]);

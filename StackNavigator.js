@@ -8,7 +8,7 @@ import { UserProvider, UserContext } from './src/context/UserContext';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import ChroniclesLoadingScreen from './src/screens/ChroniclesLoadingScreen';
-import TimeChroniclesOnboardingScreen from './src/screens/TimeChroniclesOnboardingScreen';
+import ChickenOnboardingRunScreen from './src/screens/ChickenOnboardingRunScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +32,7 @@ const AppNavigator = () => {
         <Stack.Navigator initialRouteName={'LoadPrideQuestScreen'}>
           <Stack.Screen name="TimeChroniclesHome" component={HomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="LoadPrideQuestScreen" component={ChroniclesLoadingScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="TimeChroniclesOnboarding" component={TimeChroniclesOnboardingScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="TimeChroniclesOnboarding" component={ChickenOnboardingRunScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     </NavigationContainer>
   );

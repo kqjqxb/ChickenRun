@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, FlatList, Animated, Text, TouchableOpacity, Dimensions, Image, SafeAreaView } from 'react-native';
 import fishingOnboardingData from '../components/fishingOnboardingData';
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
-const fontRubikRegular = 'Rubik-Regular';
+const fontKronaOneRegular = 'KronaOne-Regular';
 
-const TimeChroniclesOnboardingScreen = () => {
+const ChickenOnboardingRunScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [currentTimeChroniclesIndex, setCurrentTimeChroniclesIndex] = useState(0);
   const timeChroniclesRef = useRef(null);
@@ -49,93 +50,36 @@ const TimeChroniclesOnboardingScreen = () => {
       <View style={{
         width: dimensions.width,
         alignItems: 'center',
-        alignSelf: 'flex-start',
+        alignSelf: 'flex-end',
       }}>
         <Image
           source={item.itemImage}
           style={{
             width: dimensions.width * 0.9,
             alignSelf: 'center',
-            height: dimensions.height * 0.39999,
+            height: dimensions.height * 0.65,
             marginTop: dimensions.height * 0.1,
           }}
           resizeMode="contain"
         />
-        <View style={{
-          paddingVertical: dimensions.height * 0.02,
-          paddingHorizontal: dimensions.width * 0.03,
-          width: dimensions.width * 0.898,
-          backgroundColor: 'white',
-          alignSelf: 'center',
-        }}>
-          <Text
-            style={{
-              paddingHorizontal: dimensions.width * 0.05,
-              textAlign: 'center',
-              fontSize: dimensions.width * 0.07,
-              fontWeight: 700,
-              alignSelf: 'center',
-              maxWidth: dimensions.width * 0.89,
-              fontFamily: fontRubikRegular,
-              color: '#00286E',
-            }}>
-            {item.upText}
-          </Text>
-          <Text
-            style={{
-              maxWidth: dimensions.width * 0.8,
-              fontFamily: fontRubikRegular,
-              textAlign: 'center',
-              paddingHorizontal: dimensions.width * 0.05,
-              color: '#00286E',
-              alignSelf: 'center',
-              marginTop: dimensions.height * 0.015,
-              fontSize: dimensions.width * 0.036,
-              fontWeight: 700,
-            }}>
-            {item.bottomText}
-          </Text>
-
-          <TouchableOpacity
-            onPress={() => {
-              scrollNextTimeChroniclesSlide();
-            }}
-            style={{
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: dimensions.height * 0.03,
-              backgroundColor: '#00286E',
-              height: dimensions.height * 0.08,
-              width: dimensions.width * 0.45,
-            }}
-          >
-            <Text
-              style={{
-                paddingHorizontal: dimensions.width * 0.05,
-                color: '#fff',
-                fontWeight: 700,
-                fontFamily: fontRubikRegular,
-                fontSize: dimensions.width * 0.06,
-                textAlign: 'center',
-              }}>
-              {currentTimeChroniclesIndex === 0 ? 'Hello!' : 'Next'}
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
 
   return (
-    <SafeAreaView 
+    <SafeAreaView
       style={{
         justifyContent: 'space-between',
-        backgroundColor: '#002357',
         flex: 1,
         alignItems: 'center',
       }}
     >
+      <LinearGradient
+        style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
+        colors={['#F88700', '#FE1B2F']}
+        start={{ x: 1, y: 1 }}
+        end={{ x: 0, y: 0 }}
+      />
       <View style={{ display: 'flex' }}>
         <FlatList
           horizontal
@@ -154,8 +98,40 @@ const TimeChroniclesOnboardingScreen = () => {
           })}
         />
       </View>
+
+      <TouchableOpacity
+        onPress={() => {
+          scrollNextTimeChroniclesSlide();
+        }}
+        style={{
+          alignSelf: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: dimensions.height * 0.03,
+          backgroundColor: '#fff',
+          height: dimensions.height * 0.08,
+          width: dimensions.width * 0.8818,
+          position: 'absolute',
+          bottom: dimensions.height * 0.05,
+          borderRadius: dimensions.width * 0.0616161,
+          borderWidth: dimensions.width * 0.003,
+          borderColor: 'black',
+        }}
+      >
+        <Text
+          style={{
+            paddingHorizontal: dimensions.width * 0.05,
+            color: 'black',
+            fontWeight: 700,
+            fontFamily: fontKronaOneRegular,
+            fontSize: dimensions.width * 0.06,
+            textAlign: 'center',
+          }}>
+          {currentTimeChroniclesIndex >= fishingOnboardingData.length - 1 ? 'Start' : 'Next'}
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
-export default TimeChroniclesOnboardingScreen;
+export default ChickenOnboardingRunScreen;

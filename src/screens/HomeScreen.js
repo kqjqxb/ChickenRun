@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 
 import ChroniclesInformationScreen from './ChroniclesInformationScreen';
+import LinearGradient from 'react-native-linear-gradient';
 
-import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChroniclesFactsScreen from './ChroniclesFactsScreen';
 import ChroniclesMyCatchesScreen from './ChroniclesMyCatchesScreen';
@@ -22,34 +22,13 @@ import ChroniclesAquariumScreen from './ChroniclesAquariumScreen';
 
 const prideFontPoppinsRegular = 'Poppins-Regular';
 
-const fontRubikRegular = 'Rubik-Regular';
 
+const fontKronaOneRegular = 'KronaOne-Regular';
 
 const HomePrideQuestScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [selectedTimeChroniclesPage, setSelectedTimeChroniclesPage] = useState('Home');
-  const [addLionModalVisible, setAddLionModalVisible] = useState(false);
-  const styles = createPrideQuestHomeStyles(dimensions);
-  const [myPrides, setMyPrides] = useState([]);
-  const [selectedPride, setSelectedPride] = useState(null);
-  const [prideDetailsModalVisible, setPrideDetailsModalVisible] = useState(false);
   const [prideNotificationsEnabled, setPrideNotificationsEnabled] = useState(false);
-
-  useEffect(() => {
-    const loadMyPrides = async () => {
-      try {
-        const storedMyPrides = await AsyncStorage.getItem('myPrides');
-        if (storedMyPrides !== null) {
-          setMyPrides(JSON.parse(storedMyPrides));
-        }
-      } catch (error) {
-        console.error('Error loading myPride items:', error);
-      }
-    };
-
-    loadMyPrides();
-  }, [addLionModalVisible, prideDetailsModalVisible]);
-
 
   useEffect(() => {
     const loadPrideNotificationsSetting = async () => {
@@ -72,51 +51,56 @@ const HomePrideQuestScreen = () => {
       <View style={{
         flex: 1,
         width: '100%',
-        backgroundColor: '#002357',
         height: dimensions.height,
       }}>
+        <LinearGradient
+          style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
+          colors={['#F88700', '#FE1B2F']}
+          start={{ x: 1, y: 1 }}
+          end={{ x: 0, y: 0 }}
+        />
         {selectedTimeChroniclesPage === 'Home' ? (
           <SafeAreaView style={{
             flex: 1,
             alignItems: 'center',
           }}>
             <Image
-              source={require('../assets/images/homeFisherImage.png')}
+              source={require('../assets/images/chickenRunHomeImage.png')}
               style={{
-                width: dimensions.width * 0.9,
-                height: dimensions.height * 0.28,
-                marginTop: dimensions.height * 0.02,
-                alignSelf: 'flex-end',
+                width: dimensions.width * 0.5,
+                height: dimensions.height * 0.19,
+                marginBottom: dimensions.height * 0.07,
+                alignSelf: 'center',
               }}
               resizeMode='contain'
             />
 
-            {['My catches', 'Interesting facts', 'My aquarium', 'Information'].map((button, index) => (
+            {['Play', 'Skins', 'Quiz', 'Settings'].map((button, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() => {
                   setSelectedTimeChroniclesPage(button);
                 }}
                 style={{
-                  width: dimensions.width * 0.898,
-                  height: dimensions.height * 0.12,
-                  backgroundColor: selectedTimeChroniclesPage === button ? 'E67C1E' : '#1E67E6',
-                  borderRadius: dimensions.width * 0.05551,
-                  marginBottom: dimensions.height * 0.01,
+                  backgroundColor: 'white',
                   alignSelf: 'center',
+                  width: dimensions.width * 0.75,
                   alignItems: 'center',
+                  height: dimensions.height * 0.0754,
+                  borderRadius: dimensions.width * 0.1111111,
+                  borderWidth: dimensions.width * 0.003,
+                  borderColor: 'black',
+                  marginBottom: dimensions.height * 0.05,
                   justifyContent: 'center',
                 }}>
                 <Text
                   style={{
-                    paddingHorizontal: dimensions.width * 0.05,
+                    color: 'black',
                     textAlign: 'center',
-                    fontSize: dimensions.width * 0.07,
+                    fontSize: dimensions.width * 0.065,
                     fontWeight: 700,
                     alignSelf: 'center',
-                    maxWidth: dimensions.width * 0.89,
-                    fontFamily: fontRubikRegular,
-                    color: '#ffffff',
+                    fontFamily: fontKronaOneRegular,
                   }}>
                   {button}
                 </Text>
@@ -125,7 +109,7 @@ const HomePrideQuestScreen = () => {
 
           </SafeAreaView>
         ) : selectedTimeChroniclesPage === 'Information' ? (
-          <ChroniclesInformationScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} 
+          <ChroniclesInformationScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage}
           />
         ) : selectedTimeChroniclesPage === 'Interesting facts' ? (
           <ChroniclesFactsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
@@ -138,37 +122,5 @@ const HomePrideQuestScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-const createPrideQuestHomeStyles = (dimensions) => StyleSheet.create({
-  modalPrideTitleText: {
-    textAlign: 'left',
-    color: 'white',
-    fontSize: dimensions.width * 0.04,
-    fontFamily: prideFontPoppinsRegular,
-    fontWeight: 300,
-    marginLeft: dimensions.width * 0.03,
-    marginTop: dimensions.height * 0.02,
-  },
-  pridePlaceHolderViewStyles: {
-    width: dimensions.width * 0.93,
-    height: dimensions.height * 0.068,
-    backgroundColor: '#BF9539',
-    borderRadius: dimensions.width * 0.033,
-    marginTop: dimensions.height * 0.007,
-    alignSelf: 'center',
-    paddingHorizontal: dimensions.width * 0.04,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  pridePlaceHolderTextStyles: {
-    maxWidth: dimensions.width * 0.75,
-    color: 'white',
-    fontFamily: prideFontPoppinsRegular,
-    fontWeight: 600,
-    fontSize: dimensions.width * 0.04,
-    textAlign: 'left',
-  },
-});
 
 export default HomePrideQuestScreen;
