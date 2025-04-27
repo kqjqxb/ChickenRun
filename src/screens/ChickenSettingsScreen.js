@@ -201,7 +201,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
 
             <TouchableOpacity
                 onPress={() => {
-                    setSelectedTimeChroniclesPage('Home');
+                    setSelectedTimeChroniclesPage('Home'); 
                 }}
                 style={{
                     backgroundColor: 'white',
