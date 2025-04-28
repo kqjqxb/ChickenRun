@@ -16,6 +16,7 @@ import ChroniclesFactsScreen from './ChroniclesFactsScreen';
 import ChroniclesMyCatchesScreen from './ChroniclesMyCatchesScreen';
 import ChroniclesAquariumScreen from './ChroniclesAquariumScreen';
 import ChickenSkinsScreen from './ChickenSkinsScreen';
+import ChickenQuizScreen from './ChickenQuizScreen';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
@@ -115,8 +116,8 @@ const ChickenRunHomeScreen = () => {
         />
       ) : selectedTimeChroniclesPage === 'Skins' ? (
         <ChickenSkinsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
-      ) : selectedTimeChroniclesPage === 'My catches' ? (
-        <ChroniclesMyCatchesScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
+      ) : selectedTimeChroniclesPage === 'Quiz' ? (
+        <ChickenQuizScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'My aquarium' ? (
         <ChroniclesAquariumScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : null}
