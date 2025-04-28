@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -8,23 +8,24 @@ import {
     Image,
     Share
 } from 'react-native';
-import { ArrowLeftIcon } from 'react-native-heroicons/solid';
+import Slider from '@react-native-community/slider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const fontInterRegular = 'Inter-Regular';
 const fontKronaOneRegular = 'KronaOne-Regular';
 
-const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnabled, setChickenAudioEnabled }) => {
+const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenNotifEnabled, setChickenNotifEnabled, chickenVibrationEnabled, setChickenVibrationEnabled }) => {
     const [dimensions, setDimensions] = useState(Dimensions.get('window'));
+    const [volume, setVolume] = useState(0.5);
 
-    const onShare = async () => {
-        try {
-            await Share.share({
-                message: "Fishin' Time Chronicles is your personal fishing guide where you can record your fishing achievements, catch new fish species and create a unique aquarium. Save your best catches, learn interesting facts about fish and improve your fishing skills while enjoying an exciting game!",
-            });
-        } catch (error) {
-            console.error('Error sharing text:', error);
-        }
-    };
+    useEffect(() => {
+        AsyncStorage.getItem('volumeValue')
+            .then(value => {
+                if (value !== null) {
+                    setVolume(parseFloat(value));
+                }
+            })
+            .catch(error => console.error('Error loading volumeValue from AsyncStorage:', error));
+    }, []);
 
     return (
         <SafeAreaView style={{ width: dimensions.width, height: dimensions.height }}>
@@ -46,7 +47,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                 alignItems: 'center',
                 backgroundColor: 'white',
                 borderRadius: dimensions.width * 0.05551,
-                paddingVertical: dimensions.height * 0.020101,
+                paddingVertical: dimensions.height * 0.050101,
                 paddingHorizontal: dimensions.width * 0.05,
                 marginTop: dimensions.height * 0.1,
             }}>
@@ -64,11 +65,19 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                             fontFamily: fontKronaOneRegular,
                             flex: 1,
                         }}>
-                        Audio:
+                        Notification:
                     </Text>
 
                     <TouchableOpacity
-                        onPress={() => setChickenAudioEnabled((prev) => !prev)}
+                        onPress={async () => {
+                            const newValue = !chickenNotifEnabled;
+                            setChickenNotifEnabled(newValue);
+                            try {
+                                await AsyncStorage.setItem('chickenNotifEnabled', newValue.toString());
+                            } catch (error) {
+                                console.error('Error updating chickenNotifEnabled in AsyncStorage:', error);
+                            }
+                        }}
                         style={{
                             width: dimensions.width * 0.18,
                             height: dimensions.height * 0.034,
@@ -79,7 +88,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                             alignItems: 'center',
                             justifyContent: 'space-between',
                         }}>
-                        {!chickenAudioEnabled && (
+                        {!chickenNotifEnabled && (
                             <Text
                                 style={{
                                     color: 'black',
@@ -99,7 +108,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                             backgroundColor: 'black',
                         }} />
 
-                        {chickenAudioEnabled && (
+                        {chickenNotifEnabled && (
                             <Text
                                 style={{
                                     color: 'black',
@@ -131,6 +140,26 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                         }}>
                         Volume:
                     </Text>
+
+                    <Slider
+                        style={{ width: dimensions.width * 0.8, height: 40 }}
+                        minimumValue={0}
+                        maximumValue={1}
+                        value={volume}
+                        onValueChange={(val) => {
+                            setVolume(val);
+                        }}
+                        onSlidingComplete={async (val) => {
+                            try {
+                                await AsyncStorage.setItem('volumeValue', val.toString());
+                            } catch (error) {
+                                console.error('Error updating volume in AsyncStorage:', error);
+                            }
+                        }}
+                        minimumTrackTintColor="#000000"
+                        maximumTrackTintColor="#A4A4A4"
+                        thumbTintColor="#000000"
+                    />
                 </View>
 
                 <View style={{
@@ -151,7 +180,15 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                     </Text>
 
                     <TouchableOpacity
-                        onPress={() => setChickenAudioEnabled((prev) => !prev)}
+                        onPress={async () => {
+                            const newValue = !chickenVibrationEnabled;
+                            setChickenVibrationEnabled(newValue);
+                            try {
+                                await AsyncStorage.setItem('chickenVibroEnabled', newValue.toString());
+                            } catch (error) {
+                                console.error('Error updating chickenVibroEnabled in AsyncStorage:', error);
+                            }
+                        }}
                         style={{
                             width: dimensions.width * 0.18,
                             height: dimensions.height * 0.034,
@@ -162,7 +199,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                             alignItems: 'center',
                             justifyContent: 'space-between',
                         }}>
-                        {!chickenAudioEnabled && (
+                        {!chickenVibrationEnabled && (
                             <Text
                                 style={{
                                     color: 'black',
@@ -182,7 +219,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
                             backgroundColor: 'black',
                         }} />
 
-                        {chickenAudioEnabled && (
+                        {chickenVibrationEnabled && (
                             <Text
                                 style={{
                                     color: 'black',
@@ -201,7 +238,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenAudioEnab
 
             <TouchableOpacity
                 onPress={() => {
-                    setSelectedTimeChroniclesPage('Home'); 
+                    setSelectedTimeChroniclesPage('Home');
                 }}
                 style={{
                     backgroundColor: 'white',

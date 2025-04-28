@@ -21,21 +21,29 @@ const fontKronaOneRegular = 'KronaOne-Regular';
 const ChickenRunHomeScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [selectedTimeChroniclesPage, setSelectedTimeChroniclesPage] = useState('Home');
-  const [chickenAudioEnabled, setChickenAudioEnabled] = useState(false);
+  const [chickenNotifEnabled, setChickenNotifEnabled] = useState(false);
+  const [chickenVibrationEnabled, setChickenVibrationEnabled] = useState(false);
 
   useEffect(() => {
-    const loadPrideNotificationsSetting = async () => {
+    const loadChickenSettingsOfApp = async () => {
       try {
-        const storedPrideNotifications = await AsyncStorage.getItem('chickenAudioEnabled');
-        if (storedPrideNotifications !== null) {
-          setChickenAudioEnabled(JSON.parse(storedPrideNotifications));
+        const storedChickenNotifications = await AsyncStorage.getItem('chickenNotifEnabled');
+
+        const storedChickenVibro = await AsyncStorage.getItem('chickenVibroEnabled');
+
+        if (storedChickenNotifications !== null) {
+          setChickenNotifEnabled(JSON.parse(storedChickenNotifications));
+        }
+
+        if (storedChickenVibro !== null) {
+          setChickenVibrationEnabled(JSON.parse(storedChickenVibro));
         }
       } catch (error) {
-        console.error('Error loading pride notifications setting:', error);
+        console.error('Error loading chicken run setting:', error);
       }
     };
 
-    loadPrideNotificationsSetting();
+    loadChickenSettingsOfApp();
   }, [])
 
 
@@ -101,7 +109,9 @@ const ChickenRunHomeScreen = () => {
 
         </SafeAreaView>
       ) : selectedTimeChroniclesPage === 'Settings' ? (
-        <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenAudioEnabled={chickenAudioEnabled} setChickenAudioEnabled={setChickenAudioEnabled} />
+        <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenNotifEnabled={chickenNotifEnabled} setChickenNotifEnabled={setChickenNotifEnabled} 
+          chickenVibrationEnabled={chickenVibrationEnabled} setChickenVibrationEnabled={setChickenVibrationEnabled}
+        />
       ) : selectedTimeChroniclesPage === 'Interesting facts' ? (
         <ChroniclesFactsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'My catches' ? (
