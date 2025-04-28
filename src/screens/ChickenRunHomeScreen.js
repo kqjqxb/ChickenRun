@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChroniclesFactsScreen from './ChroniclesFactsScreen';
 import ChroniclesMyCatchesScreen from './ChroniclesMyCatchesScreen';
 import ChroniclesAquariumScreen from './ChroniclesAquariumScreen';
+import ChickenSkinsScreen from './ChickenSkinsScreen';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
@@ -112,8 +113,8 @@ const ChickenRunHomeScreen = () => {
         <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenNotifEnabled={chickenNotifEnabled} setChickenNotifEnabled={setChickenNotifEnabled} 
           chickenVibrationEnabled={chickenVibrationEnabled} setChickenVibrationEnabled={setChickenVibrationEnabled}
         />
-      ) : selectedTimeChroniclesPage === 'Interesting facts' ? (
-        <ChroniclesFactsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
+      ) : selectedTimeChroniclesPage === 'Skins' ? (
+        <ChickenSkinsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'My catches' ? (
         <ChroniclesMyCatchesScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'My aquarium' ? (
