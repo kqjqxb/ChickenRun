@@ -1,8 +1,8 @@
 import React from 'react';
-import TimeChroniclesStack from './StackNavigator';
+import ChickenRunStack from './StackNavigator';
 
 function App() {
-  return <TimeChroniclesStack />;
+  return <ChickenRunStack />;
 }
 
 export default App;

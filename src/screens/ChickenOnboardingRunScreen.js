@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, FlatList, Animated, Text, TouchableOpacity, Dimensions, Image, SafeAreaView } from 'react-native';
-import fishingOnboardingData from '../components/fishingOnboardingData';
+import chickenOnboardingImagesData from '../components/chickenOnboardingImagesData';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -32,7 +32,7 @@ const ChickenOnboardingRunScreen = () => {
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   const scrollNextChickenSlide = () => {
-    if (currentIndexOfChickenSlide >= fishingOnboardingData.length - 1) {
+    if (currentIndexOfChickenSlide >= chickenOnboardingImagesData.length - 1) {
       navigation.replace('ChickenRunHomeScreen');
     } else {
       refOfChicken.current.scrollToIndex({ index: currentIndexOfChickenSlide + 1 });
@@ -55,10 +55,10 @@ const ChickenOnboardingRunScreen = () => {
         <Image
           source={item.itemImage}
           style={{
-            marginTop: dimensions.height * 0.1,
-            alignSelf: 'center',
-            width: dimensions.width * 0.9,
             height: dimensions.height * 0.65,
+            alignSelf: 'center',
+            marginTop: dimensions.height * 0.1,
+            width: dimensions.width * 0.9,
           }}
           resizeMode="contain"
         />
@@ -85,12 +85,12 @@ const ChickenOnboardingRunScreen = () => {
           horizontal
           scrollEventThrottle={32}
           showsHorizontalScrollIndicator={false}
-          renderItem={renderChickenItem}
-          onViewableItemsChanged={viewableItemsChanged}
-          keyExtractor={(item) => item.id.toString()}
           ref={refOfChicken}
+          onViewableItemsChanged={viewableItemsChanged}
+          renderItem={renderChickenItem}
           bounces={false}
-          data={fishingOnboardingData}
+          keyExtractor={(item) => item.id.toString()}
+          data={chickenOnboardingImagesData}
           pagingEnabled
           viewabilityConfig={viewConfig}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: ChickenRefHorizontalScrollX } } }], {
@@ -106,16 +106,16 @@ const ChickenOnboardingRunScreen = () => {
         style={{
           alignSelf: 'center',
           alignItems: 'center',
-          borderRadius: dimensions.width * 0.0616161,
+          borderWidth: dimensions.width * 0.003,
           justifyContent: 'center',
-          marginTop: dimensions.height * 0.03,
           backgroundColor: '#fff',
+          borderRadius: dimensions.width * 0.0616161,
           height: dimensions.height * 0.08,
           width: dimensions.width * 0.8818,
           position: 'absolute',
           bottom: dimensions.height * 0.05,
           borderColor: 'black',
-          borderWidth: dimensions.width * 0.003,
+          marginTop: dimensions.height * 0.03,
         }}
       >
         <Text
@@ -127,7 +127,7 @@ const ChickenOnboardingRunScreen = () => {
             paddingHorizontal: dimensions.width * 0.05,
             fontSize: dimensions.width * 0.06,
           }}>
-          {currentIndexOfChickenSlide >= fishingOnboardingData.length - 1 ? 'Start' : 'Next'}
+          {currentIndexOfChickenSlide >= chickenOnboardingImagesData.length - 1 ? 'Start' : 'Next'}
         </Text>
       </TouchableOpacity>
     </SafeAreaView>

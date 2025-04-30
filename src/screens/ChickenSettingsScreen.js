@@ -138,7 +138,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenNotifEnab
                             fontFamily: fontKronaOneRegular,
                             marginVertical: dimensions.height * 0.05,
                         }}>
-                        Volume:
+                        Run difficulty:
                     </Text>
 
                     <Slider

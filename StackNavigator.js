@@ -12,7 +12,7 @@ import ChickenOnboardingRunScreen from './src/screens/ChickenOnboardingRunScreen
 
 const Stack = createNativeStackNavigator();
 
-const TimeChroniclesStack = () => {
+const ChickenRunStack = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
@@ -39,4 +39,4 @@ const AppNavigator = () => {
 };
 
 
-export default TimeChroniclesStack;
+export default ChickenRunStack;

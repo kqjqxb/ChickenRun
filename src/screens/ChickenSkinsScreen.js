@@ -109,10 +109,12 @@ const ChickenSkinsScreen = ({ setSelectedTimeChroniclesPage, }) => {
                 console.error('Error updating AsyncStorage:', error);
             }
             setBuyChickenModalVisible(false);
-            setSuccessfullyBoughtChickenModalVisible(true);
             setTimeout(() => {
-                setSuccessfullyBoughtChickenModalVisible(false);
-            }, 4000);
+                setSuccessfullyBoughtChickenModalVisible(true);
+            }, 1000)
+            // setTimeout(() => {
+            //     setSuccessfullyBoughtChickenModalVisible(false);
+            // }, 4000);
         } else {
             console.warn('Not enough egg balance');
         }

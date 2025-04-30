@@ -12,11 +12,9 @@ import ChickenSettingsScreen from './ChickenSettingsScreen';
 import LinearGradient from 'react-native-linear-gradient';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ChroniclesFactsScreen from './ChroniclesFactsScreen';
-import ChroniclesMyCatchesScreen from './ChroniclesMyCatchesScreen';
-import ChroniclesAquariumScreen from './ChroniclesAquariumScreen';
 import ChickenSkinsScreen from './ChickenSkinsScreen';
 import ChickenQuizScreen from './ChickenQuizScreen';
+import ChickenRunGameScreen from './ChickenRunGameScreen';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
@@ -118,8 +116,8 @@ const ChickenRunHomeScreen = () => {
         <ChickenSkinsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'Quiz' ? (
         <ChickenQuizScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
-      ) : selectedTimeChroniclesPage === 'My aquarium' ? (
-        <ChroniclesAquariumScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
+      ) : selectedTimeChroniclesPage === 'Play' ? (
+        <ChickenRunGameScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : null}
     </View>
   );
