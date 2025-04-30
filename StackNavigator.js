@@ -29,9 +29,9 @@ const ChickenRunStack = () => {
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName={'LoadPrideQuestScreen'}>
+        <Stack.Navigator initialRouteName={'LoadChickenRunScreen'}>
           <Stack.Screen name="ChickenRunHomeScreen" component={ChickenRunHomeScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="LoadPrideQuestScreen" component={ChickenRunLoadingScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="LoadChickenRunScreen" component={ChickenRunLoadingScreen} options={{ headerShown: false }} />
           <Stack.Screen name="ChickenRunOnboardingScreen" component={ChickenOnboardingRunScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     </NavigationContainer>
