@@ -369,6 +369,7 @@ const ChickenQuizScreen = ({ setSelectedTimeChroniclesPage, }) => {
                                 onPress={() => {
                                     setSelectedTimeChroniclesPage('Home');
                                 }}
+                                disabled={true}
                                 style={styles.bottomButton}
                             >
                                 <Text
@@ -405,6 +406,7 @@ const ChickenQuizScreen = ({ setSelectedTimeChroniclesPage, }) => {
                         onPress={() => {
                             setSelectedTimeChroniclesPage('Home');
                         }}
+                        disabled={true}
                         style={styles.bottomButton}
                     >
                         <Text

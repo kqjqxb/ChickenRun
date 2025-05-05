@@ -22,42 +22,42 @@ const chickenSkinsData = [
         name: 'Skin 1',
         image: require('../assets/images/chickenSkins/chickenSkin1.png'),
         itemBackgroundColor: '#B29600',
-        price: 100
+        price: 10,
     },
     {
         id: 2,
         name: 'Skin 2',
         image: require('../assets/images/chickenSkins/chickenSkin2.png'),
         itemBackgroundColor: '#0487A4',
-        price: 200
+        price: 20,
     },
     {
         id: 3,
         name: 'Skin 3',
         image: require('../assets/images/chickenSkins/chickenSkin3.png'),
         itemBackgroundColor: '#6B018E',
-        price: 300
+        price: 30,
     },
     {
         id: 4,
         name: 'Skin 3',
         image: require('../assets/images/chickenSkins/chickenSkin4.png'),
         itemBackgroundColor: '#160058',
-        price: 400
+        price: 40,
     },
     {
         id: 5,
         name: 'Skin 3',
         image: require('../assets/images/chickenSkins/chickenSkin5.png'),
         itemBackgroundColor: '#760152',
-        price: 500
+        price: 50,
     },
     {
         id: 6,
         name: 'Skin 3',
         image: require('../assets/images/chickenSkins/chickenSkin6.png'),
         itemBackgroundColor: '#6BA401',
-        price: 600
+        price: 60,
     },
 ];
 
@@ -109,9 +109,11 @@ const ChickenSkinsScreen = ({ setSelectedTimeChroniclesPage, }) => {
                 console.error('Error updating AsyncStorage:', error);
             }
             setBuyChickenModalVisible(false);
-            setTimeout(() => {
-                setSuccessfullyBoughtChickenModalVisible(true);
-            }, 1000)
+            if (eggBalance >= selectedSkinToBuy.price) {
+                setTimeout(() => {
+                    setSuccessfullyBoughtChickenModalVisible(true);
+                }, 1000)
+            }
             // setTimeout(() => {
             //     setSuccessfullyBoughtChickenModalVisible(false);
             // }, 4000);
@@ -170,16 +172,18 @@ const ChickenSkinsScreen = ({ setSelectedTimeChroniclesPage, }) => {
                 height: dimensions.height * 0.055555,
             }}>
                 {['Skins', 'My skins'].map((item, index) => (
-                    <TouchableOpacity key={index} style={{
-                        width: dimensions.width * 0.444,
-                        height: dimensions.height * 0.055555,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: dimensions.width * 0.5,
-                        backgroundColor: selectedSkinPage === item ? '#D9D9D9' : 'white',
-                        borderWidth: dimensions.width * 0.003,
-                        borderColor: selectedSkinPage === item ? 'black' : 'transparent',
-                    }}
+                    <TouchableOpacity
+                        disabled={item === 'My skins'}
+                        key={index} style={{
+                            width: dimensions.width * 0.444,
+                            height: dimensions.height * 0.055555,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: dimensions.width * 0.5,
+                            backgroundColor: selectedSkinPage === item ? '#D9D9D9' : 'white',
+                            borderWidth: dimensions.width * 0.003,
+                            borderColor: selectedSkinPage === item ? 'black' : 'transparent',
+                        }}
                         onPress={() => {
                             setSelectedSkinPage(item);
                         }}

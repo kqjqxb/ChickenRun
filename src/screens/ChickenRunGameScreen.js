@@ -387,7 +387,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
                 }
                 style={{ width: dimensions.width, height: dimensions.height }}
                 resizeMode='cover'
-            >
+            > 
                 {!isRunGameStarted ? (
                     <SafeAreaView style={{ flex: 1 }}>
                         <TouchableOpacity style={{ marginLeft: dimensions.width * 0.0343434, }} onPress={() => {
