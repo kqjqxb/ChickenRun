@@ -125,7 +125,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnab
                 </View>
 
                 <View style={{
-                    marginVertical: dimensions.height * 0.05,
+                    marginVertical: dimensions.height * 0.1,
                     width: '100%'
                 }}>
                     <Text
@@ -136,7 +136,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnab
                             alignSelf: 'flex-start',
                             fontWeight: 500,
                             fontFamily: fontKronaOneRegular,
-                            marginVertical: dimensions.height * 0.05,
+                            marginBottom: dimensions.height * 0.02,
                         }}>
                         Run difficulty:
                     </Text>
