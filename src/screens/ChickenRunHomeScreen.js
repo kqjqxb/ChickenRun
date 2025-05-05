@@ -15,24 +15,74 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChickenSkinsScreen from './ChickenSkinsScreen';
 import ChickenQuizScreen from './ChickenQuizScreen';
 import ChickenRunGameScreen from './ChickenRunGameScreen';
+import { useAudio } from '../context/AudioContext';
+import Sound from 'react-native-sound';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
 const ChickenRunHomeScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [selectedTimeChroniclesPage, setSelectedTimeChroniclesPage] = useState('Home');
-  const [chickenNotifEnabled, setChickenNotifEnabled] = useState(false);
+  const [chickenMusicEnabled, setChickenMusicEnabled] = useState(false);
   const [chickenVibrationEnabled, setChickenVibrationEnabled] = useState(false);
+
+  const { volume } = useAudio();
+  const [funnyChickensTrackIndex, setFunnyChickensTrackIndex] = useState(0);
+  const [sound, setSound] = useState(null);
+
+  const tracks = ['chickenGameSound.wav', 'chickenGameSound.wav'];
+
+  useEffect(() => {
+    playFunnyChickensTrack(funnyChickensTrackIndex);
+
+    return () => {
+      if (sound) {
+        sound.stop(() => {
+          sound.release();
+        });
+      }
+    };
+  }, [funnyChickensTrackIndex]);
+
+  useEffect(() => {
+    if (sound) {
+      sound.setVolume(chickenMusicEnabled ? 1 : 0);
+    }
+  }, [chickenMusicEnabled, sound]);
+
+  const playFunnyChickensTrack = (index) => {
+    if (sound) {
+      sound.stop(() => {
+        sound.release();
+      });
+    }
+
+    const newChickenSound = new Sound(tracks[index], Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('Помилка завантаження треку:', error);
+        return;
+      }
+      newChickenSound.setVolume(volume);
+      newChickenSound.play((success) => {
+        if (success) {
+          setFunnyChickensTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+        } else {
+          console.log('Error play track');
+        }
+      });
+      setSound(newChickenSound);
+    });
+  };
 
   useEffect(() => {
     const loadChickenSettingsOfApp = async () => {
       try {
-        const storedChickenNotifications = await AsyncStorage.getItem('chickenNotifEnabled');
+        const storedChickenNotifications = await AsyncStorage.getItem('chickenMusicEnabled');
 
         const storedChickenVibro = await AsyncStorage.getItem('chickenVibroEnabled');
 
         if (storedChickenNotifications !== null) {
-          setChickenNotifEnabled(JSON.parse(storedChickenNotifications));
+          setChickenMusicEnabled(JSON.parse(storedChickenNotifications));
         }
 
         if (storedChickenVibro !== null) {
@@ -45,6 +95,8 @@ const ChickenRunHomeScreen = () => {
 
     loadChickenSettingsOfApp();
   }, [])
+
+
 
 
   return (
@@ -109,7 +161,7 @@ const ChickenRunHomeScreen = () => {
 
         </SafeAreaView>
       ) : selectedTimeChroniclesPage === 'Settings' ? (
-        <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenNotifEnabled={chickenNotifEnabled} setChickenNotifEnabled={setChickenNotifEnabled} 
+        <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenMusicEnabled={chickenMusicEnabled} setChickenMusicEnabled={setChickenMusicEnabled}
           chickenVibrationEnabled={chickenVibrationEnabled} setChickenVibrationEnabled={setChickenVibrationEnabled}
         />
       ) : selectedTimeChroniclesPage === 'Skins' ? (
@@ -117,7 +169,7 @@ const ChickenRunHomeScreen = () => {
       ) : selectedTimeChroniclesPage === 'Quiz' ? (
         <ChickenQuizScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
       ) : selectedTimeChroniclesPage === 'Play' ? (
-        <ChickenRunGameScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
+        <ChickenRunGameScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenMusicEnabled={chickenMusicEnabled}/>
       ) : null}
     </View>
   );

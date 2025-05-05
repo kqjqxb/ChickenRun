@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import ChickenRunLoadingScreen from './src/screens/ChickenRunLoadingScreen';
 import ChickenOnboardingRunScreen from './src/screens/ChickenOnboardingRunScreen';
+import { AudioProvider } from './src/context/AudioContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,11 +30,13 @@ const ChickenRunStack = () => {
 const AppNavigator = () => {
   return (
     <NavigationContainer>
+      <AudioProvider>
         <Stack.Navigator initialRouteName={'LoadChickenRunScreen'}>
           <Stack.Screen name="ChickenRunHomeScreen" component={ChickenRunHomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="LoadChickenRunScreen" component={ChickenRunLoadingScreen} options={{ headerShown: false }} />
           <Stack.Screen name="ChickenRunOnboardingScreen" component={ChickenOnboardingRunScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
+      </AudioProvider>
     </NavigationContainer>
   );
 };

@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
-const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenNotifEnabled, setChickenNotifEnabled, chickenVibrationEnabled, setChickenVibrationEnabled }) => {
+const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabled, setChickenMusicEnabled, chickenVibrationEnabled, setChickenVibrationEnabled }) => {
     const [dimensions, setDimensions] = useState(Dimensions.get('window'));
     const [volume, setVolume] = useState(0.5);
 
@@ -65,17 +65,17 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenNotifEnab
                             fontFamily: fontKronaOneRegular,
                             flex: 1,
                         }}>
-                        Notification:
+                        Sounds:
                     </Text>
 
                     <TouchableOpacity
                         onPress={async () => {
-                            const newValue = !chickenNotifEnabled;
-                            setChickenNotifEnabled(newValue);
+                            const newValue = !chickenMusicEnabled;
+                            setChickenMusicEnabled(newValue);
                             try {
-                                await AsyncStorage.setItem('chickenNotifEnabled', newValue.toString());
+                                await AsyncStorage.setItem('chickenMusicEnabled', newValue.toString());
                             } catch (error) {
-                                console.error('Error updating chickenNotifEnabled in AsyncStorage:', error);
+                                console.error('Error updating chickenMusicEnabled in AsyncStorage:', error);
                             }
                         }}
                         style={{
@@ -88,7 +88,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenNotifEnab
                             alignItems: 'center',
                             justifyContent: 'space-between',
                         }}>
-                        {!chickenNotifEnabled && (
+                        {chickenMusicEnabled && (
                             <Text
                                 style={{
                                     color: 'black',
@@ -108,7 +108,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenNotifEnab
                             backgroundColor: 'black',
                         }} />
 
-                        {chickenNotifEnabled && (
+                        {!chickenMusicEnabled && (
                             <Text
                                 style={{
                                     color: 'black',

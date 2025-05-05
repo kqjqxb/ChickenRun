@@ -16,6 +16,7 @@ import {
 import { BlurView } from '@react-native-community/blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ArrowLeftIcon, Bars3Icon } from 'react-native-heroicons/solid';
+import Sound from 'react-native-sound';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
@@ -121,7 +122,7 @@ const modalEggsImages = [
 ]
 
 
-const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
+const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabled}) => {
     const [dimensions, setDimensions] = useState(Dimensions.get('window'));
     const [eggBalance, setEggBalance] = useState(0);
     const styles = createChickenQuizStyles(dimensions);
@@ -164,6 +165,26 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
             },
         })
     ).current;
+
+    const eggSound = 'eggSound.wav'
+    const gameOverSound = 'gameOverSound.mp3'
+
+    Sound.setCategory('Playback');
+
+    const chickensPlayEggSound = (soundFile) => {
+        const eggSound = new Sound(soundFile, Sound.MAIN_BUNDLE, (error) => {
+            eggSound.setVolume(1);
+            if (error) {
+                console.log('error loading sound file of chicken game:', error);
+                return;
+            }
+            eggSound.play((success) => {
+                if (!success) {
+                    console.log('sound error');
+                }
+            });
+        });
+    };
 
     const tryChickenCollisionOfElements = (item) => {
         if (isChickenGamePaused || endChickenGameFinished) return false;
@@ -214,8 +235,10 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
                     setTimeout(() => {
                         if (newItem.isEgg) {
                             setEggsCount((prev) => prev + 1);
+                            if (chickenMusicEnabled) chickensPlayEggSound(eggSound);
                         } else {
                             setEndChickenGameFinished(true);
+                            chickensPlayEggSound(gameOverSound);
                         }
                         setFallingFood((prev) => prev.filter((f) => f.id !== newItem.id));
                     }, 0);
@@ -269,7 +292,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
                         clearInterval(intervalId);
                         setResumeCountdown(false);
                         setRestartChickenTimerCounter((prev) => prev + 1);
-                        return 3; 
+                        return 3;
                     }
                     return prev - 1;
                 });
@@ -321,7 +344,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
                     if (!levels.includes(newLevel)) {
                         levels.push(newLevel);
                         await AsyncStorage.setItem('ownedChickenLevels', JSON.stringify(levels));
-                        setOwnedChickenLevels(levels); 
+                        setOwnedChickenLevels(levels);
                     }
                 } catch (error) {
                     console.error('Failed to update owned chicken levels of run:', error);
@@ -376,7 +399,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
         loadData();
     }, []);
 
-    
+
 
     return (
         <View style={{ width: dimensions.width, height: dimensions.height }}>
@@ -387,7 +410,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, }) => {
                 }
                 style={{ width: dimensions.width, height: dimensions.height }}
                 resizeMode='cover'
-            > 
+            >
                 {!isRunGameStarted ? (
                     <SafeAreaView style={{ flex: 1 }}>
                         <TouchableOpacity style={{ marginLeft: dimensions.width * 0.0343434, }} onPress={() => {
