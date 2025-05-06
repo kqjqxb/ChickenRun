@@ -122,7 +122,7 @@ const modalEggsImages = [
 ]
 
 
-const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabled}) => {
+const ChickenRunGameScreen = ({ setSelectedFunnyChickensRunScreen, chickenMusicEnabled}) => {
     const [dimensions, setDimensions] = useState(Dimensions.get('window'));
     const [eggBalance, setEggBalance] = useState(0);
     const styles = createChickenQuizStyles(dimensions);
@@ -414,7 +414,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabl
                 {!isRunGameStarted ? (
                     <SafeAreaView style={{ flex: 1 }}>
                         <TouchableOpacity style={{ marginLeft: dimensions.width * 0.0343434, }} onPress={() => {
-                            setSelectedTimeChroniclesPage('Home');
+                            setSelectedFunnyChickensRunScreen('Home');
                         }}>
                             <ArrowLeftIcon size={dimensions.width * 0.1} color='black' />
                         </TouchableOpacity>
@@ -759,7 +759,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabl
                                         setChickenTimeLeft(70);
                                         setResumeCountdown(false);
                                         setCountdownTime(3);
-                                    } else setSelectedTimeChroniclesPage('Settings');
+                                    } else setSelectedFunnyChickensRunScreen('Settings');
                                 }}
                                 style={[styles.modalButtons, {
                                     borderColor: 'black',
@@ -906,7 +906,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabl
                                             setChickenTimeLeft(70);
                                             setEggsCount(0);
                                             setFallingFood([]);
-                                        } else setSelectedTimeChroniclesPage('Home');
+                                        } else setSelectedFunnyChickensRunScreen('Home');
 
                                         setEndChickenGameFinished(false);
                                     }}
@@ -935,7 +935,7 @@ const ChickenRunGameScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabl
                                             setFallingFood([]);
                                             setEndChickenGameFinished(false);
                                             setChickenGamePaused(false);
-                                        } else setSelectedTimeChroniclesPage('Home');
+                                        } else setSelectedFunnyChickensRunScreen('Home');
                                     }}
                                     style={[styles.modalButtons, {
                                         borderColor: 'black',

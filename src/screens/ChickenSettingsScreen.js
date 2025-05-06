@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const fontKronaOneRegular = 'KronaOne-Regular';
 
-const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnabled, setChickenMusicEnabled, chickenVibrationEnabled, setChickenVibrationEnabled }) => {
+const ChickenSettingsScreen = ({ setSelectedFunnyChickensRunScreen, chickenMusicEnabled, setChickenMusicEnabled, chickenVibrationEnabled, setChickenVibrationEnabled }) => {
     const [dimensions, setDimensions] = useState(Dimensions.get('window'));
     const [volume, setVolume] = useState(0.5);
 
@@ -238,7 +238,7 @@ const ChickenSettingsScreen = ({ setSelectedTimeChroniclesPage, chickenMusicEnab
 
             <TouchableOpacity
                 onPress={() => {
-                    setSelectedTimeChroniclesPage('Home');
+                    setSelectedFunnyChickensRunScreen('Home');
                 }}
                 style={{
                     backgroundColor: 'white',

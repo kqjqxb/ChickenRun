@@ -69,7 +69,7 @@ const defaultChickenSkin = {
     price: 100
 };
 
-const ChickenSkinsScreen = ({ setSelectedTimeChroniclesPage, }) => {
+const ChickenSkinsScreen = ({ setSelectedFunnyChickensRunScreen, }) => {
     const [dimensions, setDimensions] = useState(Dimensions.get('window'));
     const [selectedSkinPage, setSelectedSkinPage] = useState('Skins');
     const [ownedChickenSkins, setOwnedChickenSkins] = useState([]);
@@ -154,7 +154,7 @@ const ChickenSkinsScreen = ({ setSelectedTimeChroniclesPage, }) => {
                 marginLeft: dimensions.width * 0.0343434,
             }}
                 onPress={() => {
-                    setSelectedTimeChroniclesPage('Home');
+                    setSelectedFunnyChickensRunScreen('Home');
                 }}
             >
                 <ArrowLeftIcon size={dimensions.width * 0.1} color='black' />

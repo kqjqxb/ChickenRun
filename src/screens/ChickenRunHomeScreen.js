@@ -22,7 +22,7 @@ const fontKronaOneRegular = 'KronaOne-Regular';
 
 const ChickenRunHomeScreen = () => {
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
-  const [selectedTimeChroniclesPage, setSelectedTimeChroniclesPage] = useState('Home');
+  const [selectedFunnyChickensRunScreen, setSelectedFunnyChickensRunScreen] = useState('Home');
   const [chickenMusicEnabled, setChickenMusicEnabled] = useState(false);
   const [chickenVibrationEnabled, setChickenVibrationEnabled] = useState(false);
 
@@ -30,7 +30,7 @@ const ChickenRunHomeScreen = () => {
   const [funnyChickensTrackIndex, setFunnyChickensTrackIndex] = useState(0);
   const [sound, setSound] = useState(null);
 
-  const tracks = ['chickenGameSound.wav', 'chickenGameSound.wav'];
+  const funnyTracksOfBg = ['chickenGameSound.wav', 'chickenGameSound.wav'];
 
   useEffect(() => {
     playFunnyChickensTrack(funnyChickensTrackIndex);
@@ -57,7 +57,7 @@ const ChickenRunHomeScreen = () => {
       });
     }
 
-    const newChickenSound = new Sound(tracks[index], Sound.MAIN_BUNDLE, (error) => {
+    const newChickenSound = new Sound(funnyTracksOfBg[index], Sound.MAIN_BUNDLE, (error) => {
       if (error) {
         console.log('Помилка завантаження треку:', error);
         return;
@@ -65,7 +65,7 @@ const ChickenRunHomeScreen = () => {
       newChickenSound.setVolume(volume);
       newChickenSound.play((success) => {
         if (success) {
-          setFunnyChickensTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+          setFunnyChickensTrackIndex((prevIndex) => (prevIndex + 1) % funnyTracksOfBg.length);
         } else {
           console.log('Error play track');
         }
@@ -111,7 +111,7 @@ const ChickenRunHomeScreen = () => {
         start={{ x: 1, y: 1 }}
         end={{ x: 0, y: 0 }}
       />
-      {selectedTimeChroniclesPage === 'Home' ? (
+      {selectedFunnyChickensRunScreen === 'Home' ? (
         <SafeAreaView style={{
           flex: 1,
           alignItems: 'center',
@@ -131,7 +131,7 @@ const ChickenRunHomeScreen = () => {
             <TouchableOpacity
               key={index}
               onPress={() => {
-                setSelectedTimeChroniclesPage(button);
+                setSelectedFunnyChickensRunScreen(button);
               }}
               style={{
                 backgroundColor: 'white',
@@ -160,16 +160,16 @@ const ChickenRunHomeScreen = () => {
           ))}
 
         </SafeAreaView>
-      ) : selectedTimeChroniclesPage === 'Settings' ? (
-        <ChickenSettingsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenMusicEnabled={chickenMusicEnabled} setChickenMusicEnabled={setChickenMusicEnabled}
+      ) : selectedFunnyChickensRunScreen === 'Settings' ? (
+        <ChickenSettingsScreen setSelectedFunnyChickensRunScreen={setSelectedFunnyChickensRunScreen} chickenMusicEnabled={chickenMusicEnabled} setChickenMusicEnabled={setChickenMusicEnabled}
           chickenVibrationEnabled={chickenVibrationEnabled} setChickenVibrationEnabled={setChickenVibrationEnabled}
         />
-      ) : selectedTimeChroniclesPage === 'Skins' ? (
-        <ChickenSkinsScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
-      ) : selectedTimeChroniclesPage === 'Quiz' ? (
-        <ChickenQuizScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} />
-      ) : selectedTimeChroniclesPage === 'Play' ? (
-        <ChickenRunGameScreen setSelectedTimeChroniclesPage={setSelectedTimeChroniclesPage} chickenMusicEnabled={chickenMusicEnabled}/>
+      ) : selectedFunnyChickensRunScreen === 'Skins' ? (
+        <ChickenSkinsScreen setSelectedFunnyChickensRunScreen={setSelectedFunnyChickensRunScreen} />
+      ) : selectedFunnyChickensRunScreen === 'Quiz' ? (
+        <ChickenQuizScreen setSelectedFunnyChickensRunScreen={setSelectedFunnyChickensRunScreen} />
+      ) : selectedFunnyChickensRunScreen === 'Play' ? (
+        <ChickenRunGameScreen setSelectedFunnyChickensRunScreen={setSelectedFunnyChickensRunScreen} chickenMusicEnabled={chickenMusicEnabled}/>
       ) : null}
     </View>
   );
