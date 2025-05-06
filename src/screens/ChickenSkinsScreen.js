@@ -114,9 +114,6 @@ const ChickenSkinsScreen = ({ setSelectedFunnyChickensRunScreen, }) => {
                     setSuccessfullyBoughtChickenModalVisible(true);
                 }, 1000)
             }
-            // setTimeout(() => {
-            //     setSuccessfullyBoughtChickenModalVisible(false);
-            // }, 4000);
         } else {
             console.warn('Not enough egg balance');
         }
@@ -173,7 +170,6 @@ const ChickenSkinsScreen = ({ setSelectedFunnyChickensRunScreen, }) => {
             }}>
                 {['Skins', 'My skins'].map((item, index) => (
                     <TouchableOpacity
-                        disabled={item === 'My skins'}
                         key={index} style={{
                             width: dimensions.width * 0.444,
                             height: dimensions.height * 0.055555,

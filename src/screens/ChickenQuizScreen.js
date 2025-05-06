@@ -369,7 +369,6 @@ const ChickenQuizScreen = ({ setSelectedFunnyChickensRunScreen, }) => {
                                 onPress={() => {
                                     setSelectedFunnyChickensRunScreen('Home');
                                 }}
-                                disabled={true}
                                 style={styles.bottomButton}
                             >
                                 <Text
@@ -406,7 +405,6 @@ const ChickenQuizScreen = ({ setSelectedFunnyChickensRunScreen, }) => {
                         onPress={() => {
                             setSelectedFunnyChickensRunScreen('Home');
                         }}
-                        disabled={true}
                         style={styles.bottomButton}
                     >
                         <Text
